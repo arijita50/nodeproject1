@@ -1,0 +1,78 @@
+<div class="row mt-5">
+    <div class="col-md-6 m-auto">
+		<h1>Edit Category</h1>
+        <div class="card card-body">
+            <form action="/category_edit/<%= cat_details.slug %>" method="POST" enctype="multipart/form-data">
+                <% include ./partials/messages %>
+  
+                    <div class="form-group">
+                        <label for="category_title">Category Title</label>
+                        <input
+                        type="text"
+                        id="category_title"
+                        name="category_title"
+                        class="form-control"
+                        placeholder="Enter Category Title"
+                        value="<%= cat_details.category_title %>"
+							required="required"
+							/>
+						</div>
+					<div class="form-group">
+						<label for="category_slug">Unique Slug</label>
+						<input
+                        type="text"
+                        id="category_slug"
+                        name="category_slug"
+                        class="form-control"
+                        placeholder=""
+                        value="<%= cat_details.slug %>"
+							readonly
+							/>
+						</div>
+                <div class="form-group">
+                        <label for="category_description">Category Description</label>
+                        <textarea
+                        id="category_description"
+                        name="category_description"
+                        class="form-control"
+                        placeholder="Enter Category Description"
+			            required="required"
+                        rows="3"
+                        ><%= cat_details.description %></textarea>
+                </div>
+	               
+				<% if (cat_details.category_image) { %>
+                    <img src="/static/uploads/products/category/<%=cat_details.category_image %>" alt="image" style="width:100px; height:100px">
+						<%}  %>	
+                <div class="form-group">
+			            <label for="category_image">Category Image</label>
+			            <input
+			            type="file"
+			            id="category_image"
+			            name="category_image"
+			            class="form-control-file"
+			            placeholder=""
+			            value=""
+                        />
+                        <small id="fileHelp" class="form-text text-muted">This is some placeholder block-level help text for the above input. It's a bit lighter and easily wraps to a new line.</small>
+	            </div>
+					
+						
+                Status
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="status" id="status1" value="1" <% if (cat_details.status == true) { %>checked="" <% } %>>
+                        Active
+                    </label>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="status" id="status2" value="0" <% if (cat_details.status == false || cat_details.status== null) { %>checked="" <% } %>>
+                        Inactive
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary ">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

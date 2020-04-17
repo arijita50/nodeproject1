@@ -1,0 +1,133 @@
+<h1 class="text-center mb-3">
+    <i class="fas fa-tshirt"></i> Category
+</h1>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  
+  <div class="collapse navbar-collapse" id="navbarColor03">
+    
+    <form class="form-inline my-2 my-lg-0" method="GET" action="/product_category">
+		<div class="form-group">
+			<input class="form-control mr-sm-2" type="text" placeholder="Search By Title" name="search" value="<%=search_text%>">
+		</div>
+		<div class="form-group">
+			<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			<button class="btn btn-outline-secondary my-2 my-sm-0" type="button">Reset</button>
+		</div>
+    </form>
+  </div>
+	<% if (user) { %>
+		<a type="button" class="btn btn-primary" href="/add_category">Add Category</a>
+	<% } %>
+</nav>
+
+<% include ./partials/messages %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+	  <th scope="col">Image</th>
+      <th scope="col">Category Title</th>
+      <th scope="col">Slug</th>
+      <!--<th scope="col">Parent Category</th>-->
+      <th scope="col">Author</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+	  <% if(count > 0){ %>
+		<% all_categories.forEach(function(cat){ %>
+			<tr class="table-secondary">
+				<td><img src="/static/uploads/products/category/<%= cat.category_image %>" alt="image" style="width:80px"></td>
+				<td><%= cat.category_title %></td>
+				<td><%= cat.slug %></td>
+				<!--<% if(cat.category_parent_id == 0){ %>
+					<td>-</td>
+				<% }else{ %>
+					<td><%= cat.category_parent_id %></td>
+				<% } %>-->
+	        
+				<td><%= cat.author.first_name %> <%= cat.author.last_name %></td>
+				<td>
+					<% if (user) { %>
+						<% if (user._id.toString() == cat.author._id.toString()) { %>
+							<a type="button" class="btn btn-outline-primary" href="/category_edit/<%= cat.slug %>">
+								<i class="far fa-edit"></i>
+							</a>
+							<a type="button" class="btn btn-outline-primary" href="/category_delete/<%= cat._id %>">
+								<i class="far fa-trash-alt"></i>
+							</a>
+						<% } %>
+					<% } %>
+				</td>
+			</tr>
+		<% }) %>
+	<% }else{ %>
+		<tr class="table-secondary">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>No Category Exists</td>
+			<td></td>
+			<td></td>
+		</tr>
+	<% } %>
+  </tbody>
+</table>
+
+<div>
+	<% if (pages > 0) { %>
+	<ul class="pagination text-center">
+		<% if (current == 1) { %>
+            <li class="page-item disabled">
+			<a class="page-link">First</a>
+		</li>
+		<% } else { %>
+            <li class="page-item">
+			<a class="page-link" href="/products/1">First</a>
+		</li>
+		<% } %>
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% if (i !== 1) { %>
+        <li class="page-item disabled">
+			<a class="page-link">...</a>
+		</li>
+		<% } %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+		<% if (i == current) { %>
+        <li class="page-item active">
+			<a class="page-link">
+				<%= i %>
+			</a>
+		</li>
+		<% } else { %>
+        <li class="page-item">
+			<a class="page-link" href="/products/"
+				<%= i %>"><%= i %>
+			</a>
+		</li>
+		<% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="page-item disabled">
+			<a class="page-link">...</a>
+		</li>
+		<% } %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                        <li class="page-item disabled">
+			<a class="page-link">Last</a>
+		</li>
+		<% } else { %>
+                        <li class="page-item">
+			<a class="page-link" href="/products/"
+				<%= pages %>">Last
+			</a>
+		</li>
+		<% } %>
+	</ul>
+	<% } %>
+</div>
+
+
+
+
+
