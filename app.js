@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const nodemailer = require('nodemailer');
 
+const connectiondb = require('./DB/connection');
+
 const contact_route = require('./routes/contact_route');
 const user_route = require('./routes/user_route');
 const index_route = require('./routes/index');
@@ -106,36 +108,12 @@ let mailOptions = {
     html: ' <b> Hello </b> '
 };
 
-transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-        return console.log(error);
-    } 
-    //console.log('Message sent', info.messageId);
-    //console.log(info);
-});
-
-const URI = "mongodb+srv://admin:4XJ6YyghFqud5fGc@cluster0-dstnh.mongodb.net/test?retryWrites=true&w=majority";
-mongoose.connect(URI, { 
-    useUnifiedTopology: true,  
-    useNewUrlParser: true 
-});
-mongoose.connection.on('connected', () => {
-    console.log('connected to mongodb');
-});
-
-
-//connect to mongodb
-// mongoose.connect('mongodb://localhost:27017/project1');
-
-// //on connection
-// mongoose.connection.on('connected', () => {
-//     console.log('connected to database mongodb @27017');
-// });
-
-// mongoose.connection.on('error', (err) => {
-//     if (err) {
-//         console.log('error in database connection' + err);
-//     }
+// transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//         return console.log(error);
+//     } 
+//     //console.log('Message sent', info.messageId);
+//     //console.log(info);
 // });
 
 
