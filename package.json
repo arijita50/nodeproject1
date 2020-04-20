@@ -6,6 +6,9 @@
   "scripts": {
     "start": "nodemon app.js"
   },
+  "engines": {
+    "node": "12.x"
+  },
   "author": "Arijita",
   "license": "ISC",
   "dependencies": {
