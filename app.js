@@ -115,12 +115,10 @@ transporter.sendMail(mailOptions, (error, info) => {
 });
 
 const URI = "mongodb+srv://admin:4XJ6YyghFqud5fGc@cluster0-dstnh.mongodb.net/test?retryWrites=true&w=majority";
-console.log(URI, { 
+mongoose.connect(URI, { 
     useUnifiedTopology: true,  
     useNewUrlParser: true 
 });
-
-mongoose.connect(URI);
 mongoose.connection.on('connected', () => {
     console.log('connected to mongodb');
 });
