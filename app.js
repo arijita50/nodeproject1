@@ -25,8 +25,7 @@ var app = express();
 require('./config/passport')(passport);
 
 //port no
-//var port = process.env.port || 3000;
-var port = process.env.port;
+var port = process.env.port || 3000;
 
 // use ejs-locals for all ejs templates:
 app.engine('ejs', engine);
